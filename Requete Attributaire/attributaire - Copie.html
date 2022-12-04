@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		  <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+		 
+		  <!-- Mobile Metas -->
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+	   
+		   <!-- Site Metas -->
+		  <title>VALEUR VENALE</title>  
+		  <meta name="keywords" content="">
+		  <meta name="description" content="">
+		  <meta name="author" content="">
+	  
+		  <!-- Site Icons -->
+		  <link rel="shortcut icon" href="img/icon.jpg" type="image/x-icon">
+		  <link rel="apple-touch-icon" href="img/icon.jpg">  
+	
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="css/components.css">
+		<link rel="stylesheet" href="css/icons.css">
+		<link rel="stylesheet" href="css/responsee.css">
+		<link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+		<link rel="stylesheet" href="owl-carousel/owl.theme.css">     
+		<link rel="stylesheet" href="css/template-style.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Playfair+Display&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>           
+	  </head>
+	  
+	  <body class="size-1140">
+
+    
+    <!-- MAIN -->
+    <main role="main">
+      <!-- Content -->
+      <article>
+        <div class="section background-white"> 
+          <div class="blog-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="heading-title text-center">
+                            <div class="line"> 
+                                <h2 class="text-size-50  text-m-size-40 text-center">Carte de Valeur vénale </h2>
+                                <hr class="break-small background-primary break-center">
+                                <h3> Sélectionner les zones selon votre critère de recherche :</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <html lang="en">
+					<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Esri Leaflet Tutorials: Display a map</title>
+    <meta charset="utf-8" />
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Esri Leaflet Tutorials: Display a map</title>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Esri Leaflet</title>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"></script>
+
+    <!-- Load Leaflet Geoman from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+    <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+
+	<style>
+    
+      
+	  #map { 
+                width: 1300px;
+			    height: 650px;
+                margin: 5rem auto;
+            }
+	  
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script>
+
+const map = L.map("map", {
+  minZoom: 2
+})
+      map.setView([33.777424, -7.159505], 13);
+	  const apiKey = "AAPKafa7b7b43fb74617b92e010a9e9296c62U4E205do2-Mc7uJDldDfyEPoumfxA9Y1PM9ABDBwz75UKg7RVpby4B4KTYvWkHA";
+	  const basemapLayers = {
+
+      Streets: L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets", { apiKey: apiKey }).addTo(map),
+
+      Navigation: L.esri.Vector.vectorBasemapLayer("ArcGIS:Navigation", { apiKey: apiKey }),
+      Topographic: L.esri.Vector.vectorBasemapLayer("ArcGIS:Topographic", { apiKey: apiKey }),
+      "Light Gray": L.esri.Vector.vectorBasemapLayer("ArcGIS:LightGray", { apiKey: apiKey }),
+      "Dark gray": L.esri.Vector.vectorBasemapLayer("ArcGIS:DarkGray", { apiKey: apiKey }),
+      "Streets Relief": L.esri.Vector.vectorBasemapLayer("ArcGIS:StreetsRelief", { apiKey: apiKey }),
+      Imagery: L.esri.Vector.vectorBasemapLayer("ArcGIS:Imagery", { apiKey: apiKey }),
+      ChartedTerritory: L.esri.Vector.vectorBasemapLayer("ArcGIS:ChartedTerritory", { apiKey: apiKey }),
+      ColoredPencil: L.esri.Vector.vectorBasemapLayer("ArcGIS:ColoredPencil", { apiKey: apiKey }),
+      Nova: L.esri.Vector.vectorBasemapLayer("ArcGIS:Nova", { apiKey: apiKey }),
+      Midcentury: L.esri.Vector.vectorBasemapLayer("ArcGIS:Midcentury", { apiKey: apiKey }),
+      OSM: L.esri.Vector.vectorBasemapLayer("OSM:Standard", { apiKey: apiKey }),
+      "OSM:Streets": L.esri.Vector.vectorBasemapLayer("OSM:Streets", { apiKey: apiKey })
+};
+
+L.control.layers(basemapLayers, null, { collapsed: false }).addTo(map);
+var trailheads = L.esri
+        .featureLayer({
+          url: "https://services7.arcgis.com/mA6GZQBL4f7Nrn4R/arcgis/rest/services/bouz/FeatureServer/0"
+        });
+
+      trailheads.addTo(map);
+L.Control.QueryControl = L.Control.extend({
+								  onAdd: function (map) {
+									// Array of query where clauses
+									const whereClauses = [
+									  "Afficher les zones  dont :",
+									  "Prix <= 4500",
+									  "Prix <= 5000 and Prix > 4500",
+									  "Prix <= 6000 and Prix > 5000",
+									  "Prix <= 6500 and Prix > 6000",
+									  "Prix <= 7000 and Prix > 6500"
+									  
+									];
+									
+									// Create select
+									const select = L.DomUtil.create("select", "");
+									select.setAttribute("id", "whereClauseSelect");
+									select.setAttribute("style", "font-size: 16px;padding:4px 8px;");
+									whereClauses.forEach(function (whereClause) {
+									  let option = L.DomUtil.create("option");
+									  option.innerHTML = whereClause;
+									  select.appendChild(option);
+									});
+									return select;
+								  },
+						  
+								  onRemove: function (map) {
+									// Nothing to do here
+								  }
+								});
+						  
+								L.control.queryControl = function (opts) {
+								  return new L.Control.QueryControl(opts);
+								};
+						  
+								L.control
+								  .queryControl({
+									position: "topright"
+								  })
+								  .addTo(map);
+						  
+								// Add the Feature Layer to the map
+								const parcels = L.esri
+								  .featureLayer({
+									url: "https://services7.arcgis.com/mA6GZQBL4f7Nrn4R/arcgis/rest/services/bouz/FeatureServer/0",
+									simplifyFactor: 0.5,
+									precision: 4,
+									where: "1 = 0",
+									style: function (feature) {
+									  // https://leafletjs.com/reference-1.7.1.html#path-option
+									  return {
+										opacity: 1.0,
+										weight: 0.5,
+										color: "#31a354",
+										fillColor: "#addd8e",
+										fillOpacity: 0.5
+									  };
+									}
+								  })
+								  .addTo(map);
+						  
+								//Setup the Popup
+								parcels.bindPopup(function (layer) {
+								return L.Util.template("<b> zones  : {Zone}</b>" + " </br> le prix: {Prix}", layer.feature.properties);
+								});
+						  
+								// When the selected where clause changes, set the filter on the layer
+								const select = document.getElementById("whereClauseSelect");
+								select.addEventListener("change", () => {
+								  if (select.value !== "") {
+									parcels.setWhere(select.value);
+								  }
+								});
+						
+							  </script>
+							  </html>
+
+</script>
+
+  </body>
+</div>
+</div>
+	
+
+</article>
+</main>
+<hr>
+
+<!---Tst-->
+
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+	<!-- Bottom Footer -->
+	<section class="padding background-dark full-width">
+	  <div class="s-12 l-6">
+		<p class="text-size-13">Copyright 2022, GUIDE BOUZNIKA</p>
+		<p class="text-size-13"> <i class="fa-regular fa-copyright"></i>All Rights Reserved.</p>
+	  </div>
+	  <div class="s-12 l-6">
+		<a class="right text-size-12" href="http://www.myresponsee.com" title="Responsee - lightweight responsive framework">Made By<br> Nada-Omar Team</a>
+		<!-- Back to Top -->
+		<a href="#" class="back-to-top" ><i class="fa fa-angle-double-up"></i></a>
+	  </div>
+	  
+	</section>
+	
+  </footer>
+<script type="text/javascript" src="js/responsee.js"></script>
+<script type="text/javascript" src="owl-carousel/owl.carousel.js"></script>
+<script type="text/javascript" src="js/template-scripts.js"></script>
+</body>
+</html>
