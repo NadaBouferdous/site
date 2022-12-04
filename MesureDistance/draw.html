@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet Draw</title>
+	<link rel="stylesheet" type="text/css" href="lib/leaflet.css">
+	<link rel="stylesheet" type="text/css" href="lib/leaflet.draw.css">
+    <style>
+		/*
+			UKy Colors:
+            #c7c9c8 light gray
+            #63666a dark gray
+            #15397f dark blue
+            #009bda light blue
+            #0033a0 official blue
+        */
+		body {
+			margin: 0;
+			padding: 0;
+			background: #e3e3e6;
+			font-family: 'Lato', sans-serif;
+			font-weight: 300;
+			color: #3d3d3d;
+			font-size: 100%;
+			/* 16px is default browser size */
+
+		}
+
+		header,
+		section,
+		footer {
+			width: 80%;
+			margin: 10px auto;
+		}
+
+		h1 {
+			font-weight: 900;
+			font-size: 2.8em;
+			font-style: italic;
+			/* The em unit. 3x the current size */
+			letter-spacing: .02em;
+			margin: 5px 0;
+			/* text-transform: uppercase; */
+		}
+
+		h2 {
+			font-weight: 300;
+			color: #63666a;
+			font-size: 2.2em;
+			letter-spacing: .06em;
+			font-style: italic;
+			margin: 5px 0;
+		}
+
+		h3 {
+			font-weight: 300i;
+			font-size: 1.5em;
+			margin-bottom: 5px;
+		}
+
+		p {
+			font-size: 1.3em;
+			line-height: 1.8em;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: #004A8B;
+			font-weight: 400;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			padding: 0px 20px 4px 20px;
+			font-size: 1.1em;
+			line-height: 1.2em;
+			color: #63666a;
+		}
+
+		li {
+			margin: 10px 0
+		}
+
+		hr {
+			margin: 20px 0;
+			border: 0;
+			height: 1px;
+			background: #63666a;
+
+		}
+
+		.linkbox {
+			margin: 3px 0 20px 0;
+			display: block;
+			font-size: 0.9em;
+			font-weight: 300;
+			line-height: 1.3em;
+		}
+
+		#map {
+			width: 100%;
+			height: 500px;
+			margin: 20px auto;
+
+		}
+
+		.max-image-width {
+			width: 100%;
+		}
+
+		/* Use float property to make two-column layout */
+		.first-column {
+			float: left;
+			width: 49%;
+			padding-right: 2%;
+		}
+
+		.column {
+			float: left;
+			width: 49%;
+		}
+
+		/* Clear floats after the columns */
+		.row::after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		.leaflet-popup-content p {
+			margin: 1px 0 -8px;
+			font-size: 1.1em;
+		}
+
+		.leaflet-popup-content h3 {
+			font-family: 'Slabo 27px', serif;
+			font-size: 1.3em;
+			margin-bottom: 1px;
+		}
+
+		/* When browser is 900px wide or less */
+		@media screen and (max-width: 900px) {
+
+			.first-column,
+			.second-column {
+				width: 100%;
+			}
+		}
+        .coordinate {
+            position: absolute;
+            bottom: 10px;
+            right: 50%;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #000000;
+            color: #fff;
+            border: 1px solid red;
+            border-radius: 0px;
+        }
+    </style>
+
+</head>
+<body>
+	<header>
+		<h1>Carte de mesure spatiale  :</h1>
+	</header>
+	<section>
+		<div class="row">
+			<div id="map"></div>
+
+			<div class="first-column">
+				<h2>Carte de mesure et dessin</h2>
+				<p>
+					cette carte nous permet de s'initialiser sur les mesures entre les differentes pharmacies qui existe dans la ville  de bouzniqa .
+	      </p>
+	<div id="map"></div>
+
+	<script type="text/javascript" src="lib/leaflet.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+    <script src="./data/point.js"></script>
+    <script src="./data/provinces_tta.js"></script>
+
+
+	<script>
+		  var map = L.map('map').setView([33.777424, -7.159505], 7);
+          L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        minZoom: 1,
+        maxZoom: 16,
+        ext: 'jpg'
+    }).addTo(map);
+    var MyIcon = L.icon({
+  iconUrl: 'img/ecole.png',
+  iconSize: [25, 25],
+  iconAnchor: [0, 0],
+  popupAnchor: [0, 0]
+});
+
+    var ecoles_bouzniqa = {
+"type": "FeatureCollection",
+"name": "ecoles_bouzniqa",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Ecole Jnane Al Adarissa", "Fulladdres": "lotissement Ghita Route de،, Bouznika 13100", "Street": "lotissement Ghita Route de،", "Municipali": "Bouznika 13100", "Categories": "Établissement d'enseignement,Collège,École maternelle,École primaire", "Phone": "05376-49956", "Phones": "05376-49956, +212 5376-49956", "Claimed": 1, "Review Cou": 5, "Average Ra": 4.6, "Google Map": "https:\/\/www.google.com\/maps?cid=6778074182537262471", "Latitude": 33.7748143, "Longitude": -7.162021, "Website": "http:\/\/jnanealadarissa.ma\/", "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipPu-wtOczFNtWHCNz52od6E0CL4qGISVW58oY24=w122-h92-k-no", "Cid": 6.7780741825372621e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.162021, 33.7748143 ] } },
+{ "type": "Feature", "properties": { "Name": "Ecole Descartes Bouznika", "Fulladdres": "Lotissement Zine Essalam, Bouznika 13100", "Street": "Lotissement Zine Essalam", "Municipali": "Bouznika 13100", "Categories": "Établissement d'enseignement", "Phone": "0661-752003", "Phones": "0661-752003, +212 661-752003", "Claimed": 1, "Review Cou": 1, "Average Ra": 5.0, "Google Map": "https:\/\/www.google.com\/maps?cid=7213629347588121293", "Latitude": 33.7697755, "Longitude": -7.1591528, "Website": null, "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipPBt21KgN8gjILFTLgsO14QoJFew1Irsbf-W7cG=w92-h92-k-no", "Cid": 7.2136293475881216e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1591528, 33.7697755 ] } },
+{ "type": "Feature", "properties": { "Name": "Ecole Auguste Lumière", "Fulladdres": "beau rivage, Bouznika 13100", "Street": "beau rivage", "Municipali": "Bouznika 13100", "Categories": "École privée", "Phone": null, "Phones": null, "Claimed": 1, "Review Cou": null, "Average Ra": null, "Google Map": "https:\/\/www.google.com\/maps?cid=3289350659946052319", "Latitude": 33.7813199, "Longitude": -7.1495066, "Website": null, "Featured i": null, "Cid": 3.2893506599460521e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1495066, 33.7813199 ] } },
+{ "type": "Feature", "properties": { "Name": "Ecole Picasso", "Fulladdres": "QRFR+2XC, Bouznika", "Street": "QRFR+2XC", "Municipali": "Bouznika", "Categories": "École", "Phone": "05377-45859", "Phones": "05377-45859, +212 5377-45859", "Claimed": 0, "Review Cou": 1, "Average Ra": 5.0, "Google Map": "https:\/\/www.google.com\/maps?cid=8242975052198676663", "Latitude": 33.7725607, "Longitude": -7.1576121, "Website": null, "Featured i": null, "Cid": 8.2429750521986755e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1576121, 33.7725607 ] } },
+{ "type": "Feature", "properties": { "Name": "Ecole Decartes A Bouznika", "Fulladdres": "QRGR+GRJ, Bouznika", "Street": "QRGR+GRJ", "Municipali": "Bouznika", "Categories": "École", "Phone": "0661-752003", "Phones": "0661-752003, +212 661-752003", "Claimed": 0, "Review Cou": 2, "Average Ra": 3.5, "Google Map": "https:\/\/www.google.com\/maps?cid=10966045307378359730", "Latitude": 33.7763496, "Longitude": -7.1579777, "Website": null, "Featured i": null, "Cid": 1.096604530737836e+19 }, "geometry": { "type": "Point", "coordinates": [ -7.1579777, 33.7763496 ] } },
+{ "type": "Feature", "properties": { "Name": "Groupe scolaire Jules Ferry", "Fulladdres": "QRMM+4XQ, Bouznika", "Street": "QRMM+4XQ", "Municipali": "Bouznika", "Categories": "École", "Phone": "05376-49964", "Phones": "05376-49964, +212 5376-49964", "Claimed": 0, "Review Cou": null, "Average Ra": null, "Google Map": "https:\/\/www.google.com\/maps?cid=8166430574824458286", "Latitude": 33.7828319, "Longitude": -7.1650012, "Website": null, "Featured i": null, "Cid": 8.1664305748244593e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1650012, 33.7828319 ] } },
+{ "type": "Feature", "properties": { "Name": "École Abdellah Gnoun bouznika", "Fulladdres": "R305،, Bouznika", "Street": "R305،", "Municipali": "Bouznika", "Categories": "École", "Phone": null, "Phones": null, "Claimed": 0, "Review Cou": 2, "Average Ra": 3.0, "Google Map": "https:\/\/www.google.com\/maps?cid=6545440927266374304", "Latitude": 33.7879681, "Longitude": -7.1587071, "Website": null, "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipP_2OP_zQPo19IlkSF227B8QbZrdLspUhNcoL0W=w163-h92-k-no", "Cid": 6.5454409272663747e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1587071, 33.7879681 ] } },
+{ "type": "Feature", "properties": { "Name": "École Maternelle et Primaire Auguste Lumière", "Fulladdres": "QR6Q+4XM, Bouznika", "Street": "QR6Q+4XM", "Municipali": "Bouznika", "Categories": "École", "Phone": null, "Phones": null, "Claimed": 0, "Review Cou": 6, "Average Ra": 3.2, "Google Map": "https:\/\/www.google.com\/maps?cid=4415426216942979340", "Latitude": 33.7603369, "Longitude": -7.1600663, "Website": null, "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipPRfzcmURmjwXuQIvTLA2OAvSPeMblNAG2N7xuO=w163-h92-k-no", "Cid": 4.4154262169429796e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1600663, 33.7603369 ] } },
+{ "type": "Feature", "properties": { "Name": "Thales International School", "Fulladdres": "QRRP+WP6 Résidence Shems،, Bouznika", "Street": "QRRP+WP6", "Municipali": "Résidence Shems،", "Categories": "École", "Phone": null, "Phones": null, "Claimed": 0, "Review Cou": 1, "Average Ra": 5.0, "Google Map": "https:\/\/www.google.com\/maps?cid=16774025575944306582", "Latitude": 33.7916541, "Longitude": -7.162637, "Website": null, "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipNvlGoyYhvuXKJpmrEMTs-KetytCS6_4XWsVGDL=w122-h92-k-no", "Cid": 1.6774025575944307e+19 }, "geometry": { "type": "Point", "coordinates": [ -7.162637, 33.7916541 ] } },
+{ "type": "Feature", "properties": { "Name": "Ecole Al Mohammadia, BOUZNIKA.", "Fulladdres": "QRPR+X4G, Bouznika", "Street": "QRPR+X4G", "Municipali": "Bouznika", "Categories": "École primaire", "Phone": "05377-45805", "Phones": "05377-45805, +212 5377-45805", "Claimed": 0, "Review Cou": 9, "Average Ra": 3.8, "Google Map": "https:\/\/www.google.com\/maps?cid=2908700637566132671", "Latitude": 33.7874292, "Longitude": -7.1596665, "Website": "http:\/\/ecolesbouznika.net\/", "Featured i": "https:\/\/lh5.googleusercontent.com\/p\/AF1QipMmUlbuV5TsC9kib1lat4kj5acivwyDYSRCOgqk=w80-h164-k-no", "Cid": 2.9087006375661327e+18 }, "geometry": { "type": "Point", "coordinates": [ -7.1596665, 33.7874292 ] } }
+]
+}
+
+
+  
+geojsonLayer = L.geoJSON(ecoles_bouzniqa, {
+  pointToLayer: function(feature, latlng) {
+        return new L.Marker(latlng, {
+        	icon: MyIcon
+        });
+    },
+    onEachFeature: function (feature, tilelayer) {
+        tilelayer.bindPopup('<h1> votres écoles choisie est :  '+feature.properties.Name+  
+                '</h1><p>cette école est : '+feature.properties.Categories +
+                    '</p><p1>le numero pour le contact est:' + feature.properties.Phone +
+                        '</p>');
+    }
+});
+
+map.addLayer(geojsonLayer);
+
+       var drawnItems = new L.FeatureGroup();
+     map.addLayer(drawnItems);
+     var drawControl = new L.Control.Draw({
+     	// position: 'topright',
+		     	draw: {
+		    polygon: {
+		     shapeOptions: {
+		      color: 'purple'
+		     },
+		     allowIntersection: false,
+		     drawError: {
+		      color: 'orange',
+		      timeout: 1000
+		     },
+		    },
+		    polyline: {
+		     shapeOptions: {
+		      color: 'red'
+		     },
+		    },
+		    rect: {
+		     shapeOptions: {
+		      color: 'green'
+		     },
+		    },
+		    circle: {
+		     shapeOptions: {
+		      color: 'steelblue'
+		     },
+		    },
+		   },
+         edit: {
+             featureGroup: drawnItems
+         }
+     });
+     map.addControl(drawControl);
+      map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+            drawnItems.addLayer(layer);
+        });
+
+     
+	</script>
+
+
+</body>
+</html>
